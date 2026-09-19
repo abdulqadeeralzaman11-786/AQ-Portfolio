@@ -72,3 +72,15 @@ export interface TimelineItem {
   highlights: string[];
 }
 
+export interface Qualification {
+  id: string;
+  degree: string;
+  degreeUr: string;
+  institution: string;
+  institutionUr: string;
+  location: string;
+  locationUr: string;
+  field: string;
+  fieldUr: string;
+}
+

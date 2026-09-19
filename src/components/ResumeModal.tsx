@@ -1,6 +1,6 @@
 import { Language } from '../types';
-import { personalDetails, skillsData, timelineData, projectsData } from '../data/portfolioData';
-import { X, Printer, Download, Mail, MapPin, CheckCircle, ExternalLink, Phone } from 'lucide-react';
+import { personalDetails, skillsData, timelineData, projectsData, qualificationsData } from '../data/portfolioData';
+import { X, Printer, Download, Mail, MapPin, CheckCircle, ExternalLink, Phone, GraduationCap } from 'lucide-react';
 
 interface ResumeModalProps {
   isOpen: boolean;
@@ -132,6 +132,34 @@ export function ResumeModal({ isOpen, lang, onClose }: ResumeModalProps) {
                       <li key={hlIdx}>{hl}</li>
                     ))}
                   </ul>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Education & Academic Qualifications */}
+          <div>
+            <h2 className="text-xs font-bold uppercase tracking-wider text-slate-400 mb-4 flex items-center gap-1.5">
+              <GraduationCap className="w-4 h-4 text-amber-600" />
+              <span>{lang === 'en' ? 'Education & Academic Qualifications' : 'تعلیمی قابلیت و اسناد'}</span>
+            </h2>
+            <div className="space-y-4">
+              {qualificationsData.map((qual) => (
+                <div key={qual.id} className="border-l-2 border-amber-500 pl-4 py-0.5">
+                  <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between text-xs gap-1">
+                    <span className="font-bold text-slate-900 text-sm">
+                      {lang === 'en' ? qual.degree : qual.degreeUr}
+                    </span>
+                    <span className="font-medium text-slate-500">
+                      {lang === 'en' ? qual.location : qual.locationUr}
+                    </span>
+                  </div>
+                  <div className="text-xs font-semibold text-amber-800 mt-0.5">
+                    {lang === 'en' ? qual.institution : qual.institutionUr}
+                  </div>
+                  <p className="text-xs text-slate-600 mt-0.5">
+                    {lang === 'en' ? qual.field : qual.fieldUr}
+                  </p>
                 </div>
               ))}
             </div>

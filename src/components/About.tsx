@@ -1,6 +1,6 @@
 import { Language, ThemeMode } from '../types';
-import { personalDetails } from '../data/portfolioData';
-import { Code2, Zap, ShieldCheck, MessagesSquare, MapPin, Mail, Sparkles, CheckCircle2, Phone, MessageSquare } from 'lucide-react';
+import { personalDetails, qualificationsData } from '../data/portfolioData';
+import { Code2, Zap, ShieldCheck, MessagesSquare, MapPin, Mail, Sparkles, CheckCircle2, Phone, MessageSquare, GraduationCap, Award, BookOpen } from 'lucide-react';
 
 interface AboutProps {
   lang: Language;
@@ -268,6 +268,90 @@ export function About({ lang, theme = 'dark' }: AboutProps) {
               </div>
             );
           })}
+        </div>
+
+        {/* Academic & Educational Qualifications */}
+        <div className="mt-14 pt-12 border-t border-slate-800/80">
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-8">
+            <div>
+              <div
+                className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold mb-2 border ${
+                  isDark
+                    ? 'bg-amber-500/10 border-amber-500/30 text-amber-300'
+                    : 'bg-amber-50 border-amber-200 text-amber-800'
+                }`}
+              >
+                <GraduationCap className="w-3.5 h-3.5 text-amber-500" />
+                <span>{lang === 'en' ? 'Academic Credentials' : 'تعلیمی اسناد و قابلیت'}</span>
+              </div>
+              <h3
+                className={`text-2xl sm:text-3xl font-extrabold tracking-tight ${
+                  isDark ? 'text-white' : 'text-slate-900'
+                }`}
+              >
+                {lang === 'en' ? 'Educational Qualifications' : 'تعلیمی قابلیت اور اسناد'}
+              </h3>
+            </div>
+            <p className="text-xs text-slate-400 max-w-xs">
+              {lang === 'en'
+                ? 'Strong multidisciplinary foundation combining Computer Science, Social Dynamics, and Pedagogy.'
+                : 'کمپیوٹر سائنس، معاشرتی تحقیق اور تعلیمی تدریس کا کثیر الجہتی تعلیمی پس منظر۔'}
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+            {qualificationsData.map((qual, idx) => (
+              <div
+                key={qual.id}
+                className={`rounded-2xl p-6 border transition-all duration-300 hover:-translate-y-1 relative flex flex-col justify-between ${
+                  isDark
+                    ? 'bg-slate-800/80 border-slate-700/80 hover:border-amber-500/50 shadow-md'
+                    : 'bg-slate-50 border-slate-200/90 hover:border-amber-400 shadow-xs'
+                }`}
+              >
+                <div>
+                  <div className="flex items-center justify-between gap-2 mb-3">
+                    <div className="w-10 h-10 rounded-xl bg-amber-500/15 border border-amber-500/30 text-amber-400 flex items-center justify-center font-bold text-sm">
+                      <GraduationCap className="w-5 h-5 text-amber-500" />
+                    </div>
+                    <span className="px-2.5 py-0.5 rounded-full text-[11px] font-semibold bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+                      {lang === 'en' ? 'Degree' : 'ڈگری'}
+                    </span>
+                  </div>
+
+                  <h4
+                    className={`text-base font-extrabold leading-snug mb-1 ${
+                      isDark ? 'text-white' : 'text-slate-900'
+                    }`}
+                  >
+                    {lang === 'en' ? qual.degree : qual.degreeUr}
+                  </h4>
+
+                  <div className="text-xs font-semibold text-amber-500 mb-2">
+                    {lang === 'en' ? qual.institution : qual.institutionUr}
+                  </div>
+
+                  <p className="text-xs text-slate-400 leading-relaxed mb-4">
+                    {lang === 'en' ? qual.field : qual.fieldUr}
+                  </p>
+                </div>
+
+                <div
+                  className={`pt-3 border-t text-[11px] flex items-center justify-between ${
+                    isDark ? 'border-slate-700/70 text-slate-400' : 'border-slate-200 text-slate-600'
+                  }`}
+                >
+                  <span className="flex items-center gap-1 font-medium">
+                    <MapPin className="w-3 h-3 text-amber-500" />
+                    {lang === 'en' ? qual.location : qual.locationUr}
+                  </span>
+                  <span className="text-amber-500 font-semibold">
+                    {lang === 'en' ? 'Verified' : 'تصدیق شدہ'}
+                  </span>
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
 
       </div>

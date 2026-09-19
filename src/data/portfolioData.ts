@@ -1,4 +1,4 @@
-import { Project, SkillCategory, TimelineItem, HeroSlide } from '../types';
+import { Project, SkillCategory, TimelineItem, HeroSlide, Qualification } from '../types';
 
 export const personalDetails = {
   name: "Abdul Qadeer Al Zaman",
@@ -11,16 +11,52 @@ export const personalDetails = {
   phone: "+923425075721",
   phoneFormatted: "+92 342 5075721",
   whatsappUrl: "https://wa.me/923425075721",
-  location: "Islamabad / Rawalpindi, Pakistan (Open to Remote Globally)",
-  locationUrdu: "اسلام آباد / راولپنڈی، پاکستان (عالمی ریموٹ کام کے لیے دستیاب)",
+  location: "Dadyal, Mirpur, Azad Kashmir",
+  locationUrdu: "ڈڈیال، میرپور، آزاد کشمیر",
   status: "Available for new projects & consulting",
   statusUrdu: "نئے پروجیکٹس اور مشاورت کے لیے دستیاب",
   yearsExperience: "4+",
   completedProjects: "25+",
   clientSatisfaction: "99%",
-  about: `I am a passionate software engineer and digital builder dedicated to creating responsive, high-performance web systems and intuitive user experiences. With a foundation grounded in modern web technologies, clean code architecture, and problem-solving, I partner with businesses and individuals to turn ideas into reliable software products.`,
-  aboutUrdu: `میں ایک پرعزم سافٹ ویئر انجینئر اور ڈیجیٹل ڈیولپر ہوں جو تیز رفتار، محفوظ اور صارف دوست ویب سسٹمز تیار کرنے میں مہارت رکھتا ہوں۔ جدید ویب ٹیکنالوجیز اور معیاری کوڈنگ اصولوں کے ساتھ، میں کاروباری اداروں اور افراد کے نظریات کو کامیاب ڈیجیٹل حل میں بدلتا ہوں۔`
+  about: `I am a passionate software engineer and digital builder dedicated to creating responsive, high-performance web systems and intuitive user experiences. With a strong multidisciplinary academic foundation in Computer Science, Pakistan Studies, and Education, I bring both technical precision and thoughtful analytical depth to every project.`,
+  aboutUrdu: `میں ایک پرعزم سافٹ ویئر انجینئر اور ڈیجیٹل ڈیولپر ہوں جو تیز رفتار، محفوظ اور جدید ویب سسٹمز تیار کرنے میں مہارت رکھتا ہوں۔ کمپیوٹر سائنس، مطالعہ پاکستان اور تعلیم کے کثیر الجہتی تعلیمی پس منظر کے ساتھ، میں ہر پروجیکٹ میں تکنیکی مہارت اور تجزیاتی گہرائی پیش کرتا ہوں۔`
 };
+
+export const qualificationsData: Qualification[] = [
+  {
+    id: "qual-1",
+    degree: "BS (Computer Science)",
+    degreeUr: "بی ایس (کمپیوٹر سائنس)",
+    institution: "University of Azad Jammu & Kashmir",
+    institutionUr: "جامعہ آزاد جموں و کشمیر",
+    location: "Azad Kashmir",
+    locationUr: "آزاد کشمیر",
+    field: "Computer Science, Software Engineering & Systems",
+    fieldUr: "کمپیوٹر سائنس، سافٹ ویئر انجینئرنگ اور سسٹمز"
+  },
+  {
+    id: "qual-2",
+    degree: "M.Sc. Pakistan Studies",
+    degreeUr: "ایم ایس سی پاکستان اسٹڈیز",
+    institution: "MUST University Mirpur",
+    institutionUr: "میرپور یونیورسٹی آف سائنس اینڈ ٹیکنالوجی (MUST)",
+    location: "Mirpur, Azad Kashmir",
+    locationUr: "میرپور، آزاد کشمیر",
+    field: "Pakistan Studies, Social Dynamics & History",
+    fieldUr: "مطالعہ پاکستان اور ملکی تاریخ"
+  },
+  {
+    id: "qual-3",
+    degree: "Master in Education (M.Ed)",
+    degreeUr: "ماسٹر ان ایجوکیشن (ایم ایڈ)",
+    institution: "Allama Iqbal Open University (AIOU) Islamabad",
+    institutionUr: "علامہ اقبال اوپن یونیورسٹی، اسلام آباد",
+    location: "Islamabad",
+    locationUr: "اسلام آباد",
+    field: "Educational Methods, Leadership & Pedagogy",
+    fieldUr: "تعلیمی تدریس، جدید تدریسی طریقے اور ریسرچ"
+  }
+];
 
 export const heroSlidesData: HeroSlide[] = [
   {

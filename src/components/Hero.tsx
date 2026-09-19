@@ -3,7 +3,7 @@ import { Language, ThemeMode } from '../types';
 import { personalDetails } from '../data/portfolioData';
 import { FrontSlides } from './FrontSlides';
 import { ProfilePhotoUploader } from './ProfilePhotoUploader';
-import { ArrowDown, Mail, Phone, MessageSquare, Copy, Check, Sparkles } from 'lucide-react';
+import { ArrowDown, Mail, Phone, MessageSquare, Copy, Check, Sparkles, MapPin } from 'lucide-react';
 
 interface HeroProps {
   lang: Language;
@@ -163,6 +163,17 @@ export function Hero({ lang, theme, onOpenResume }: HeroProps) {
                 </>
               )}
             </button>
+
+            <div
+              className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-medium border ${
+                isDark
+                  ? 'bg-slate-800/90 text-slate-300 border-slate-700'
+                  : 'bg-white text-slate-700 border-slate-200'
+              }`}
+            >
+              <MapPin className="w-3.5 h-3.5 text-amber-500" />
+              <span>{lang === 'en' ? personalDetails.location : personalDetails.locationUrdu}</span>
+            </div>
           </div>
 
           {/* Front Page Interactive Slides Showcase */}
