@@ -1,6 +1,6 @@
 import { Language } from '../types';
 import { personalDetails, skillsData, timelineData, projectsData } from '../data/portfolioData';
-import { X, Printer, Download, Mail, MapPin, CheckCircle, ExternalLink } from 'lucide-react';
+import { X, Printer, Download, Mail, MapPin, CheckCircle, ExternalLink, Phone } from 'lucide-react';
 
 interface ResumeModalProps {
   isOpen: boolean;
@@ -14,6 +14,8 @@ export function ResumeModal({ isOpen, lang, onClose }: ResumeModalProps) {
   const handlePrint = () => {
     window.print();
   };
+
+  const savedPhoto = typeof window !== 'undefined' ? localStorage.getItem('abdul_qadeer_profile_photo') : null;
 
   return (
     <div
@@ -57,19 +59,34 @@ export function ResumeModal({ isOpen, lang, onClose }: ResumeModalProps) {
           
           {/* Header */}
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 pb-6 border-b border-slate-200">
-            <div>
-              <h1 className="text-3xl font-extrabold text-slate-900 tracking-tight">
-                {personalDetails.name}
-              </h1>
-              <p className="font-urdu text-xl text-amber-800 font-semibold mt-1">
-                {personalDetails.nameUrdu}
-              </p>
-              <p className="text-sm font-semibold text-slate-700 mt-1">
-                {lang === 'en' ? personalDetails.title : personalDetails.titleUrdu}
-              </p>
+            <div className="flex items-center gap-4">
+              {savedPhoto && (
+                <img
+                  src={savedPhoto}
+                  alt={personalDetails.name}
+                  className="w-16 h-16 rounded-full object-cover border-2 border-amber-600 shadow-sm shrink-0"
+                />
+              )}
+              <div>
+                <h1 className="text-3xl font-extrabold text-slate-900 tracking-tight">
+                  {personalDetails.name}
+                </h1>
+                <p className="font-urdu text-xl text-amber-800 font-semibold mt-1">
+                  {personalDetails.nameUrdu}
+                </p>
+                <p className="text-sm font-semibold text-slate-700 mt-1">
+                  {lang === 'en' ? personalDetails.title : personalDetails.titleUrdu}
+                </p>
+              </div>
             </div>
 
             <div className="text-xs space-y-1.5 sm:text-right text-slate-600">
+              <div className="flex items-center sm:justify-end gap-1.5">
+                <Phone className="w-3.5 h-3.5 text-amber-600" />
+                <a href={`tel:${personalDetails.phone}`} className="hover:underline font-semibold text-slate-900">
+                  {personalDetails.phoneFormatted}
+                </a>
+              </div>
               <div className="flex items-center sm:justify-end gap-1.5">
                 <Mail className="w-3.5 h-3.5 text-slate-400" />
                 <a href={`mailto:${personalDetails.email}`} className="hover:underline font-medium text-slate-800">

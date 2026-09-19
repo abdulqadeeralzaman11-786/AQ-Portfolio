@@ -1,6 +1,6 @@
 import { Language, ThemeMode } from '../types';
 import { personalDetails } from '../data/portfolioData';
-import { Code2, Zap, ShieldCheck, MessagesSquare, MapPin, Mail, Sparkles, CheckCircle2 } from 'lucide-react';
+import { Code2, Zap, ShieldCheck, MessagesSquare, MapPin, Mail, Sparkles, CheckCircle2, Phone, MessageSquare } from 'lucide-react';
 
 interface AboutProps {
   lang: Language;
@@ -162,6 +162,30 @@ export function About({ lang, theme = 'dark' }: AboutProps) {
                   >
                     <Mail className="w-3.5 h-3.5" />
                     <span>{personalDetails.email}</span>
+                  </a>
+                </dd>
+              </div>
+
+              <div>
+                <dt className="text-xs text-slate-400 font-medium">
+                  {lang === 'en' ? 'Direct Mobile & WhatsApp' : 'موبائل نمبر اور واٹس ایپ'}
+                </dt>
+                <dd className="font-semibold mt-0.5 flex flex-wrap items-center gap-3">
+                  <a
+                    href={`tel:${personalDetails.phone}`}
+                    className="text-amber-500 hover:text-amber-400 hover:underline flex items-center gap-1.5"
+                  >
+                    <Phone className="w-3.5 h-3.5" />
+                    <span>{personalDetails.phoneFormatted}</span>
+                  </a>
+                  <a
+                    href={personalDetails.whatsappUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-emerald-400 hover:text-emerald-300 text-xs flex items-center gap-1 bg-emerald-500/10 px-2 py-0.5 rounded-md border border-emerald-500/20"
+                  >
+                    <MessageSquare className="w-3 h-3" />
+                    <span>WhatsApp</span>
                   </a>
                 </dd>
               </div>

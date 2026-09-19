@@ -1,7 +1,7 @@
 import { useState, FormEvent } from 'react';
 import { Language, ThemeMode } from '../types';
 import { personalDetails } from '../data/portfolioData';
-import { Mail, Send, Check, Copy, Clock, MapPin, CheckCircle2, MessageSquare } from 'lucide-react';
+import { Mail, Send, Check, Copy, Clock, MapPin, CheckCircle2, MessageSquare, Phone } from 'lucide-react';
 
 interface ContactProps {
   lang: Language;
@@ -15,12 +15,21 @@ export function Contact({ lang, theme = 'dark' }: ContactProps) {
   const [message, setMessage] = useState('');
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [copiedEmail, setCopiedEmail] = useState(false);
+  const [copiedPhone, setCopiedPhone] = useState(false);
   const isDark = theme === 'dark';
 
   const handleCopyEmail = () => {
     navigator.clipboard.writeText(personalDetails.email);
     setCopiedEmail(true);
     setTimeout(() => setCopiedEmail(false), 2200);
+  };
+
+  const handleCopyPhone = () => {
+    if (personalDetails.phone) {
+      navigator.clipboard.writeText(personalDetails.phone);
+      setCopiedPhone(true);
+      setTimeout(() => setCopiedPhone(false), 2200);
+    }
   };
 
   const handleSubmit = (e: FormEvent) => {
@@ -106,6 +115,59 @@ export function Contact({ lang, theme = 'dark' }: ContactProps) {
               </h3>
 
               <div className="space-y-4">
+                {/* Mobile / Direct Call Box */}
+                <div
+                  className={`p-3.5 rounded-xl border ${
+                    isDark
+                      ? 'bg-slate-900/90 border-slate-700'
+                      : 'bg-white border-slate-200'
+                  }`}
+                >
+                  <span className="text-xs text-slate-400 font-medium block mb-1">
+                    {lang === 'en' ? 'Direct Mobile / WhatsApp' : 'موبائل نمبر اور واٹس ایپ'}
+                  </span>
+                  <div className="flex items-center justify-between gap-2">
+                    <a
+                      href={`tel:${personalDetails.phone}`}
+                      className={`text-xs sm:text-sm font-semibold truncate flex items-center gap-1.5 ${
+                        isDark ? 'text-amber-400 hover:text-amber-300' : 'text-amber-700 hover:text-amber-800'
+                      }`}
+                    >
+                      <Phone className="w-3.5 h-3.5 text-amber-500" />
+                      <span>{personalDetails.phoneFormatted}</span>
+                    </a>
+                    <div className="flex items-center gap-1 shrink-0">
+                      <a
+                        href={personalDetails.whatsappUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="px-2 py-1 rounded-md bg-emerald-500/20 hover:bg-emerald-500/30 text-emerald-300 text-[11px] font-semibold border border-emerald-500/30 transition-colors flex items-center gap-1"
+                        title="Chat on WhatsApp"
+                      >
+                        <MessageSquare className="w-3 h-3 text-emerald-400" />
+                        <span>WhatsApp</span>
+                      </a>
+
+                      <button
+                        onClick={handleCopyPhone}
+                        className={`p-1.5 rounded-md transition-colors cursor-pointer ${
+                          isDark
+                            ? 'hover:bg-slate-800 text-slate-400'
+                            : 'hover:bg-slate-100 text-slate-500'
+                        }`}
+                        title="Copy mobile number"
+                        aria-label="Copy phone"
+                      >
+                        {copiedPhone ? (
+                          <Check className="w-4 h-4 text-emerald-500" />
+                        ) : (
+                          <Copy className="w-4 h-4" />
+                        )}
+                      </button>
+                    </div>
+                  </div>
+                </div>
+
                 {/* Email Box */}
                 <div
                   className={`p-3.5 rounded-xl border ${

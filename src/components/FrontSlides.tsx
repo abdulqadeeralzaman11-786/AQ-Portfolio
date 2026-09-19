@@ -17,7 +17,9 @@ import {
   Briefcase,
   CheckCircle2,
   TrendingUp,
-  ExternalLink
+  ExternalLink,
+  Phone,
+  MessageSquare
 } from 'lucide-react';
 
 interface FrontSlidesProps {
@@ -168,6 +170,95 @@ export function FrontSlides({ lang, onOpenResume }: FrontSlidesProps) {
       {/* Outer Glow Card Container */}
       <div className="relative overflow-hidden rounded-3xl bg-slate-900/90 border border-slate-700/80 shadow-2xl backdrop-blur-xl transition-all duration-500">
         
+        {/* Continuous Running Name Marquee Ticker (Requested: Name running in slides) */}
+        <div
+          id="slides-name-ticker"
+          className="relative z-20 w-full overflow-hidden bg-slate-950/90 border-b border-amber-500/20 py-2.5 px-2 flex items-center"
+        >
+          <div className="shrink-0 px-2.5 py-1 bg-amber-500 text-slate-950 font-black text-[10px] uppercase tracking-wider rounded-md flex items-center gap-1.5 shadow-xs mr-3 select-none">
+            <span className="relative flex h-2 w-2">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-slate-950 opacity-75"></span>
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-slate-950"></span>
+            </span>
+            <span>{lang === 'en' ? 'LIVE' : 'براہ راست'}</span>
+          </div>
+
+          {/* Seamless Infinite Running Name Marquee */}
+          <div className="overflow-hidden whitespace-nowrap flex-1 mask-fade">
+            <div className="animate-marquee inline-flex items-center gap-8 text-xs font-medium tracking-wide">
+              {/* Loop Segment 1 */}
+              <div className="inline-flex items-center gap-4">
+                <span className="font-extrabold text-amber-400 text-sm tracking-normal">
+                  {personalDetails.name}
+                </span>
+                <span className="font-urdu text-amber-300 text-sm font-bold">
+                  {personalDetails.nameUrdu}
+                </span>
+                <span className="text-slate-500">•</span>
+                <span className="text-slate-300">
+                  {lang === 'en' ? personalDetails.title : personalDetails.titleUrdu}
+                </span>
+                <span className="text-slate-500">•</span>
+                <a
+                  href={`tel:${personalDetails.phone}`}
+                  className="text-emerald-400 hover:text-emerald-300 font-mono font-semibold flex items-center gap-1"
+                >
+                  <Phone className="w-3 h-3" />
+                  <span>{personalDetails.phoneFormatted}</span>
+                </a>
+                <span className="text-slate-500">•</span>
+                <a
+                  href={personalDetails.whatsappUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-sky-400 hover:text-sky-300 flex items-center gap-1"
+                >
+                  <MessageSquare className="w-3 h-3" />
+                  <span>WhatsApp: {personalDetails.phoneFormatted}</span>
+                </a>
+                <span className="text-slate-500">•</span>
+                <span className="text-slate-400">{personalDetails.location}</span>
+                <span className="text-amber-500/60 font-bold">★</span>
+              </div>
+
+              {/* Loop Segment 2 (Identical duplicate for seamless continuous animation) */}
+              <div className="inline-flex items-center gap-4">
+                <span className="font-extrabold text-amber-400 text-sm tracking-normal">
+                  {personalDetails.name}
+                </span>
+                <span className="font-urdu text-amber-300 text-sm font-bold">
+                  {personalDetails.nameUrdu}
+                </span>
+                <span className="text-slate-500">•</span>
+                <span className="text-slate-300">
+                  {lang === 'en' ? personalDetails.title : personalDetails.titleUrdu}
+                </span>
+                <span className="text-slate-500">•</span>
+                <a
+                  href={`tel:${personalDetails.phone}`}
+                  className="text-emerald-400 hover:text-emerald-300 font-mono font-semibold flex items-center gap-1"
+                >
+                  <Phone className="w-3 h-3" />
+                  <span>{personalDetails.phoneFormatted}</span>
+                </a>
+                <span className="text-slate-500">•</span>
+                <a
+                  href={personalDetails.whatsappUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-sky-400 hover:text-sky-300 flex items-center gap-1"
+                >
+                  <MessageSquare className="w-3 h-3" />
+                  <span>WhatsApp: {personalDetails.phoneFormatted}</span>
+                </a>
+                <span className="text-slate-500">•</span>
+                <span className="text-slate-400">{personalDetails.location}</span>
+                <span className="text-amber-500/60 font-bold">★</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
         {/* Animated Radial Backdrop */}
         <div
           className={`absolute -top-32 -left-32 w-96 h-96 rounded-full bg-gradient-to-br ${currentTheme.glow} blur-3xl pointer-events-none transition-all duration-700`}
@@ -351,6 +442,17 @@ export function FrontSlides({ lang, onOpenResume }: FrontSlidesProps) {
                   )}
                 </button>
               )}
+
+              <a
+                href={personalDetails.whatsappUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="px-3.5 py-2.5 rounded-xl bg-emerald-600/20 hover:bg-emerald-600/30 text-emerald-300 border border-emerald-500/30 text-xs sm:text-sm font-semibold transition-all flex items-center gap-1.5 cursor-pointer"
+                title="Direct WhatsApp"
+              >
+                <MessageSquare className="w-3.5 h-3.5 text-emerald-400" />
+                <span>{lang === 'en' ? 'WhatsApp' : 'واٹس ایپ'}</span>
+              </a>
             </div>
 
             {/* Dot Selectors */}

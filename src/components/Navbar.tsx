@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Language, ThemeMode } from '../types';
 import { personalDetails } from '../data/portfolioData';
-import { Menu, X, Mail, Globe, ArrowUpRight, Moon, Sun, Sparkles } from 'lucide-react';
+import { Menu, X, Mail, Globe, ArrowUpRight, Moon, Sun, Sparkles, Phone, MessageSquare } from 'lucide-react';
 
 interface NavbarProps {
   lang: Language;
@@ -14,6 +14,22 @@ interface NavbarProps {
 export function Navbar({ lang, theme, onToggleLang, onToggleTheme, onOpenResume }: NavbarProps) {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [customPhoto, setCustomPhoto] = useState<string | null>(null);
+
+  useEffect(() => {
+    try {
+      const saved = localStorage.getItem('abdul_qadeer_profile_photo');
+      if (saved) setCustomPhoto(saved);
+    } catch {}
+
+    const handleStorage = (e: StorageEvent) => {
+      if (e.key === 'abdul_qadeer_profile_photo') {
+        setCustomPhoto(e.newValue);
+      }
+    };
+    window.addEventListener('storage', handleStorage);
+    return () => window.removeEventListener('storage', handleStorage);
+  }, []);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -52,9 +68,20 @@ export function Navbar({ lang, theme, onToggleLang, onToggleTheme, onOpenResume 
           id="nav-brand-logo"
           className="group flex items-center gap-3 focus:outline-none"
         >
-          <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-amber-400 to-amber-600 text-slate-950 font-extrabold flex items-center justify-center text-sm shadow-md transition-transform duration-200 group-hover:scale-105 border border-amber-300/30">
-            AQ
-          </div>
+          {customPhoto ? (
+            <div className="w-10 h-10 rounded-xl overflow-hidden border-2 border-amber-500/80 shadow-md group-hover:scale-105 transition-transform duration-200">
+              <img
+                src={customPhoto}
+                alt={personalDetails.name}
+                className="w-full h-full object-cover"
+                referrerPolicy="no-referrer"
+              />
+            </div>
+          ) : (
+            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-amber-400 to-amber-600 text-slate-950 font-extrabold flex items-center justify-center text-sm shadow-md transition-transform duration-200 group-hover:scale-105 border border-amber-300/30">
+              AQ
+            </div>
+          )}
           <div className="flex flex-col">
             <span
               className={`font-bold text-base leading-tight tracking-tight transition-colors ${
@@ -120,6 +147,18 @@ export function Navbar({ lang, theme, onToggleLang, onToggleTheme, onOpenResume 
             <Globe className="w-3.5 h-3.5 text-amber-500" />
             <span>{lang === 'en' ? 'اردو' : 'English'}</span>
           </button>
+
+          {/* Quick WhatsApp / Call */}
+          <a
+            href={personalDetails.whatsappUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="p-2 rounded-lg border border-emerald-500/30 bg-emerald-500/10 text-emerald-400 hover:bg-emerald-500/20 transition-colors flex items-center justify-center cursor-pointer"
+            title="Chat on WhatsApp (+923425075721)"
+            aria-label="WhatsApp"
+          >
+            <MessageSquare className="w-4 h-4" />
+          </a>
 
           {/* Quick Resume View */}
           <button
@@ -210,6 +249,25 @@ export function Navbar({ lang, theme, onToggleLang, onToggleTheme, onOpenResume 
                 isDark ? 'border-slate-800' : 'border-slate-100'
               }`}
             >
+              <div className="grid grid-cols-2 gap-2 pt-1">
+                <a
+                  href={`tel:${personalDetails.phone}`}
+                  className="py-2.5 px-3 rounded-xl border border-amber-500/30 bg-amber-500/10 text-amber-300 font-semibold text-xs flex items-center justify-center gap-1.5"
+                >
+                  <Phone className="w-3.5 h-3.5 text-amber-400" />
+                  <span>{lang === 'en' ? 'Call Now' : 'کال کریں'}</span>
+                </a>
+                <a
+                  href={personalDetails.whatsappUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="py-2.5 px-3 rounded-xl border border-emerald-500/30 bg-emerald-500/10 text-emerald-300 font-semibold text-xs flex items-center justify-center gap-1.5"
+                >
+                  <MessageSquare className="w-3.5 h-3.5 text-emerald-400" />
+                  <span>WhatsApp</span>
+                </a>
+              </div>
+
               <button
                 onClick={() => {
                   setMobileMenuOpen(false);

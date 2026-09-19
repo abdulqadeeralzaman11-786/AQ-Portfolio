@@ -2,7 +2,8 @@ import { useState } from 'react';
 import { Language, ThemeMode } from '../types';
 import { personalDetails } from '../data/portfolioData';
 import { FrontSlides } from './FrontSlides';
-import { ArrowDown, Mail, CheckCircle2, Copy, Check, Sparkles, FileText } from 'lucide-react';
+import { ProfilePhotoUploader } from './ProfilePhotoUploader';
+import { ArrowDown, Mail, Phone, MessageSquare, Copy, Check, Sparkles } from 'lucide-react';
 
 interface HeroProps {
   lang: Language;
@@ -12,12 +13,21 @@ interface HeroProps {
 
 export function Hero({ lang, theme, onOpenResume }: HeroProps) {
   const [copiedEmail, setCopiedEmail] = useState(false);
+  const [copiedPhone, setCopiedPhone] = useState(false);
   const isDark = theme === 'dark';
 
   const handleCopyEmail = () => {
     navigator.clipboard.writeText(personalDetails.email);
     setCopiedEmail(true);
     setTimeout(() => setCopiedEmail(false), 2200);
+  };
+
+  const handleCopyPhone = () => {
+    if (personalDetails.phone) {
+      navigator.clipboard.writeText(personalDetails.phone);
+      setCopiedPhone(true);
+      setTimeout(() => setCopiedPhone(false), 2200);
+    }
   };
 
   return (
@@ -46,7 +56,7 @@ export function Hero({ lang, theme, onOpenResume }: HeroProps) {
           {/* Availability Status Badge */}
           <div
             id="hero-status-badge"
-            className={`inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full text-xs font-semibold shadow-xs mb-6 transition-transform hover:scale-[1.02] ${
+            className={`inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full text-xs font-semibold shadow-xs mb-5 transition-transform hover:scale-[1.02] ${
               isDark
                 ? 'bg-emerald-950/60 border border-emerald-500/30 text-emerald-300'
                 : 'bg-emerald-50 border border-emerald-200/70 text-emerald-800'
@@ -57,6 +67,11 @@ export function Hero({ lang, theme, onOpenResume }: HeroProps) {
               <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500"></span>
             </span>
             <span>{lang === 'en' ? personalDetails.status : personalDetails.statusUrdu}</span>
+          </div>
+
+          {/* User Profile Photo Uploader (User can set their own photo directly) */}
+          <div className="mb-5">
+            <ProfilePhotoUploader lang={lang} theme={theme} size="lg" showUploadButton={true} />
           </div>
 
           {/* Main Identity Title */}
@@ -81,7 +96,7 @@ export function Hero({ lang, theme, onOpenResume }: HeroProps) {
           {/* Role & Core Pitch */}
           <p
             id="hero-role-title"
-            className={`text-lg sm:text-xl font-semibold max-w-2xl mt-1 mb-3 ${
+            className={`text-lg sm:text-xl font-semibold max-w-2xl mt-1 mb-2 ${
               isDark ? 'text-slate-300' : 'text-slate-700'
             }`}
           >
@@ -90,12 +105,65 @@ export function Hero({ lang, theme, onOpenResume }: HeroProps) {
 
           <p
             id="hero-tagline"
-            className={`text-base max-w-xl leading-relaxed mb-6 ${
+            className={`text-base max-w-xl leading-relaxed mb-5 ${
               isDark ? 'text-slate-400' : 'text-slate-600'
             }`}
           >
             {lang === 'en' ? personalDetails.tagline : personalDetails.taglineUrdu}
           </p>
+
+          {/* Direct Phone & WhatsApp Contact Bar */}
+          <div className="flex flex-wrap items-center justify-center gap-2.5 mb-6">
+            <a
+              href={`tel:${personalDetails.phone}`}
+              id="hero-phone-call-btn"
+              className={`inline-flex items-center gap-2 px-3.5 py-1.5 rounded-xl text-xs font-semibold border transition-all ${
+                isDark
+                  ? 'bg-amber-500/10 hover:bg-amber-500/20 text-amber-300 border-amber-500/30'
+                  : 'bg-amber-50 hover:bg-amber-100 text-amber-900 border-amber-200'
+              }`}
+            >
+              <Phone className="w-3.5 h-3.5 text-amber-500" />
+              <span>{personalDetails.phoneFormatted}</span>
+            </a>
+
+            <a
+              href={personalDetails.whatsappUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              id="hero-whatsapp-btn"
+              className={`inline-flex items-center gap-2 px-3.5 py-1.5 rounded-xl text-xs font-semibold border transition-all ${
+                isDark
+                  ? 'bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-300 border-emerald-500/30'
+                  : 'bg-emerald-50 hover:bg-emerald-100 text-emerald-800 border-emerald-200'
+              }`}
+            >
+              <MessageSquare className="w-3.5 h-3.5 text-emerald-500" />
+              <span>{lang === 'en' ? 'WhatsApp Chat' : 'واٹس ایپ رابطہ'}</span>
+            </a>
+
+            <button
+              onClick={handleCopyPhone}
+              className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-medium border transition-colors cursor-pointer ${
+                isDark
+                  ? 'bg-slate-800 hover:bg-slate-700 text-slate-300 border-slate-700'
+                  : 'bg-white hover:bg-slate-100 text-slate-700 border-slate-200'
+              }`}
+              title="Copy mobile number"
+            >
+              {copiedPhone ? (
+                <>
+                  <Check className="w-3.5 h-3.5 text-emerald-400" />
+                  <span className="text-emerald-400 font-semibold">{lang === 'en' ? 'Copied' : 'کاپی ہو گیا'}</span>
+                </>
+              ) : (
+                <>
+                  <Copy className="w-3.5 h-3.5 text-slate-400" />
+                  <span>{lang === 'en' ? 'Copy Phone' : 'نمبر کاپی کریں'}</span>
+                </>
+              )}
+            </button>
+          </div>
 
           {/* Front Page Interactive Slides Showcase */}
           <div id="front-slides" className="w-full my-4">
